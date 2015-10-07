@@ -4,7 +4,8 @@
 #include "modelerapp.h"
 #include "modelerdraw.h"
 #include <FL/gl.h>
-#include <math.h>
+#include <complex>
+#include <cmath>
 
 #include "modelerglobals.h"
 
@@ -39,13 +40,19 @@ void SampleModel::draw()
 	setDiffuseColor(COLOR_RED);
 	glPushMatrix();
 	glScaled(VAL(FLOOR_SIZE), VAL(FLOOR_SIZE), VAL(FLOOR_SIZE));
-	
-	glTranslated(-5,0,-5);
-	drawBox(10,0.01f,10);
+	drawSierpinskiTriangle(0, 0, 1,
+		0.86602540378443864676372317075293618347140262690519, 0, -0.5,
+		-0.86602540378443864676372317075293618347140262690519, 0, -0.5,
+		VAL(FLOOR_DEPTH)
+	);
+
+	glTranslated(0, -0.05, 0);
+	setDiffuseColor(COLOR_BLUE);
+	drawPolygon(18, 2);
 	glPopMatrix();
 
 	// draw the sample model
-	GLfloat maambient[] = { 0.79225f, 0.79225f, 0.79225f, 1.0f };
+	/*GLfloat maambient[] = { 0.79225f, 0.79225f, 0.79225f, 1.0f };
 	GLfloat madiffuse[] = { 0.50754f, 0.50754f, 0.50754f, 1.0f };
 	GLfloat maspecular[] = { 0.508273f, 0.508273f, 0.508273f, 0.508273f };
 	GLfloat mashiniess = 51.2f;
@@ -54,7 +61,7 @@ void SampleModel::draw()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, madiffuse);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, maspecular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, mashiniess);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, maemi);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, maemi);*/
 
 	setAmbientColor(.1f,.1f,.1f);
 	setDiffuseColor(COLOR_GREEN);

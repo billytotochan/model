@@ -2,7 +2,11 @@
 #include <FL/gl.h>
 #include <GL/glu.h>
 #include <cstdio>
-#include <math.h>
+#include <complex>
+#include <cmath>
+#include "bitmap.h"
+
+#define PI 3.14159265
 
 // ********************************************************
 // Support functions from previous version of modeler
@@ -425,4 +429,90 @@ void drawTriangle( double x1, double y1, double z1,
         glVertex3d( x3, y3, z3 );
         glEnd();
     }
+}
+
+void drawSierpinskiTriangle(double x1, double y1, double z1,
+	double x2, double y2, double z2,
+	double x3, double y3, double z3, int depth)
+{
+	if (depth == 0)
+	{
+		drawTriangle(x1, y1, z1,
+			x2, y2, z2,
+			x3, y3, z3);
+	}
+	else
+	{
+		drawSierpinskiTriangle(x1, y1, z1,
+			(x2 + x1) / 2, (y2 + y1) / 2, (z2 + z1) / 2,
+			(x3 + x1) / 2, (y3 + y1) / 2, (z3 + z1) / 2, depth - 1);
+
+		drawSierpinskiTriangle((x2 + x1) / 2, (y2 + y1) / 2, (z2 + z1) / 2,
+			x2, y2, z2,
+			(x2 + x3) / 2, (y2 + y3) / 2, (z2 + z3) / 2, depth - 1);
+
+		drawSierpinskiTriangle((x3 + x1) / 2, (y3 + y1) / 2, (z3 + z1) / 2,
+			(x2 + x3) / 2, (y2 + y3) / 2, (z2 + z3) / 2,
+			x3, y3, z3, depth - 1);
+	}
+}
+
+void drawPolygon(int n, float a)
+{
+	ModelerDrawState *mds = ModelerDrawState::Instance();
+
+	_setupOpenGl();
+
+	if (mds->m_rayFile)
+	{
+		_dump_current_modelview();
+		fprintf(mds->m_rayFile,
+			"polymesh { points=((%f,%f,%f),(%f,%f,%f),(%f,%f,%f)); faces=((0,1,2));\n");
+		_dump_current_material();
+		fprintf(mds->m_rayFile, "})\n");
+	}
+	else
+	{
+		drawTexture();
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, mds->texture[0]);
+		glBegin(GL_POLYGON);
+		glNormal3d(0, 1, 0);
+		for (int i = 0; i < n; i++)
+		{
+			glTexCoord2f(cos(2 * PI * i / n), sin(2 * PI * i / n));
+			glVertex3d(a * cos(2 * PI * i / n), 0, a * sin(2 * PI * i / n));
+		}
+		glEnd();
+		glDisable(GL_TEXTURE_2D);
+	}
+}
+
+void drawTexture()
+{
+	static bool init = true;
+	if (!init)
+	{
+		return;
+	}
+	init = false;
+
+	ModelerDrawState *mds = ModelerDrawState::Instance();
+	mds->texture = new GLuint[10];
+	glEnable(GL_TEXTURE_2D);
+	glGenTextures(1, mds->texture);
+	glBindTexture(GL_TEXTURE_2D, mds->texture[0]);
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	int height;
+	int width;
+	unsigned char* data = readBMP("res/floor.bmp", width, height);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	glDisable(GL_TEXTURE_2D);
+	delete[]data;
 }
