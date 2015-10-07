@@ -4,6 +4,7 @@
 #include "modelerapp.h"
 #include "modelerdraw.h"
 #include <FL/gl.h>
+#include <math.h>
 
 #include "modelerglobals.h"
 
@@ -37,15 +38,30 @@ void SampleModel::draw()
 	setAmbientColor(.1f,.1f,.1f);
 	setDiffuseColor(COLOR_RED);
 	glPushMatrix();
+	glScaled(VAL(FLOOR_SIZE), VAL(FLOOR_SIZE), VAL(FLOOR_SIZE));
+	
 	glTranslated(-5,0,-5);
 	drawBox(10,0.01f,10);
 	glPopMatrix();
 
 	// draw the sample model
+	GLfloat maambient[] = { 0.79225f, 0.79225f, 0.79225f, 1.0f };
+	GLfloat madiffuse[] = { 0.50754f, 0.50754f, 0.50754f, 1.0f };
+	GLfloat maspecular[] = { 0.508273f, 0.508273f, 0.508273f, 0.508273f };
+	GLfloat mashiniess = 51.2f;
+	GLfloat maemi[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, maambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, madiffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, maspecular);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, mashiniess);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, maemi);
+
 	setAmbientColor(.1f,.1f,.1f);
 	setDiffuseColor(COLOR_GREEN);
 	glPushMatrix();
+
 	glTranslated(VAL(XPOS), VAL(YPOS), VAL(ZPOS));
+	glScaled(VAL(XSCALE), VAL(YSCALE), VAL(ZSCALE));
 
 		glPushMatrix();
 		glTranslated(-1.5, 0, -2);
@@ -78,9 +94,14 @@ int main()
     ModelerControl controls[NUMCONTROLS];
     controls[XPOS] = ModelerControl("X Position", -5, 5, 0.1f, 0);
     controls[YPOS] = ModelerControl("Y Position", 0, 5, 0.1f, 0);
-    controls[ZPOS] = ModelerControl("Z Position", -5, 5, 0.1f, 0);
+	controls[ZPOS] = ModelerControl("Z Position", -5, 5, 0.1f, 0);
+	controls[XSCALE] = ModelerControl("X Scale", 0, 3, 0.1f, 1.0f);
+	controls[YSCALE] = ModelerControl("Y Scale", 0, 3, 0.1f, 1.0f);
+	controls[ZSCALE] = ModelerControl("Z Scale", 0, 3, 0.1f, 1.0f);
     controls[HEIGHT] = ModelerControl("Height", 1, 2.5, 0.1f, 1);
 	controls[ROTATE] = ModelerControl("Rotate", -135, 135, 1, 0);
+	controls[FLOOR_SIZE] = ModelerControl("Floor Size", 0, 10, 0.1f, 5.0f);
+	controls[FLOOR_DEPTH] = ModelerControl("Floor Depth", 0, 10, 1, 4);
 
     ModelerApplication::Instance()->Init(&createSampleModel, controls, NUMCONTROLS);
     return ModelerApplication::Instance()->Run();

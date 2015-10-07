@@ -1,0 +1,7 @@
+Release/
+local/
+*.gitignore
+modelerui.fl
+modeler.*
+Debug/
+res/

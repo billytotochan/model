@@ -298,6 +298,17 @@ void drawTextureBox( double x, double y, double z )
     // NOT IMPLEMENTED, SORRY (ehsu)
 }
 
+void drawRoundCylinder(double h, double r1, double r2)
+{
+	glPushMatrix();
+	glTranslated(0, 0, r1);
+	drawSphere(r1);
+	if (h - r1 - r2 > 0) drawCylinder(h - r1 - r2, r1, r2);
+	glTranslated(0, 0, h - r1 - r2);
+	drawSphere(r2);
+	glPopMatrix();
+}
+
 void drawCylinder( double h, double r1, double r2 )
 {
     ModelerDrawState *mds = ModelerDrawState::Instance();
@@ -415,15 +426,3 @@ void drawTriangle( double x1, double y1, double z1,
         glEnd();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
