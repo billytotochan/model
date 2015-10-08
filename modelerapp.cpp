@@ -194,9 +194,7 @@ void ModelerApplication::Swing(int control, double max, double min, double gap)
 	if (ModelerApplication::Instance()->m_animating)
 	{
 		double value = VAL(control);
-
-		if (direction[control]) value += gap;
-		else value -= gap;
+		value = (direction[control] ? value + gap : value - gap);
 		if (value >= MAX(control))
 		{
 			value = MAX(control);
