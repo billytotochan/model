@@ -144,7 +144,15 @@ int ModelerApplication::Run()
 
 double ModelerApplication::GetControlValue(int controlNumber)
 {
-    return m_controlValueSliders[controlNumber]->value();
+	return m_controlValueSliders[controlNumber]->value();
+}
+double ModelerApplication::GetMaxControlValue(int controlNumber)
+{
+	return m_controlValueSliders[controlNumber]->maximum();
+}
+double ModelerApplication::GetMinControlValue(int controlNumber)
+{
+	return m_controlValueSliders[controlNumber]->minimum();
 }
 
 void ModelerApplication::SetControlValue(int controlNumber, double value)
@@ -178,4 +186,27 @@ void ModelerApplication::RedrawLoop(void*)
 
 	// 1/50 second update is good enough
 	Fl::add_timeout(0.025, ModelerApplication::RedrawLoop, NULL);
+}
+
+void ModelerApplication::Swing(int control, double max, double min, double gap)
+{
+	static bool direction[NUMCONTROLS] = {};
+	if (ModelerApplication::Instance()->m_animating)
+	{
+		double value = VAL(control);
+
+		if (direction[control]) value += gap;
+		else value -= gap;
+		if (value >= MAX(control))
+		{
+			value = MAX(control);
+			direction[control] = 0;
+		}
+		if (value <= MIN(control))
+		{
+			value = MIN(control);
+			direction[control] = 1;
+		}
+		SETVAL(control, value);
+	}
 }

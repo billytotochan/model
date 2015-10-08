@@ -14,6 +14,7 @@ enum SampleModelControls
 	XSCALE, YSCALE, ZSCALE,
 	FLOOR_SIZE, FLOOR_DEPTH,
 
+	DETAIL_LEVEL,
 	NUMCONTROLS
 };
 
@@ -21,9 +22,13 @@ enum SampleModelControls
 #define COLOR_RED		1.0f, 0.0f, 0.0f
 #define COLOR_GREEN		0.0f, 1.0f, 0.0f
 #define COLOR_BLUE		0.0f, 0.0f, 1.0f
+#define COLOR_GRAY		0.8f, 0.8f, 0.8f
 
 // We'll be getting the instance of the application a lot; 
 // might as well have it as a macro.
 #define VAL(x) (ModelerApplication::Instance()->GetControlValue(x))
+#define MAX(x) (ModelerApplication::Instance()->GetMaxControlValue(x))
+#define MIN(x) (ModelerApplication::Instance()->GetMinControlValue(x))
+#define SETVAL(x, v) (ModelerApplication::Instance()->SetControlValue(x, v))
 
 #endif

@@ -102,13 +102,18 @@ int main()
     controls[XPOS] = ModelerControl("X Position", -5, 5, 0.1f, 0);
     controls[YPOS] = ModelerControl("Y Position", 0, 5, 0.1f, 0);
 	controls[ZPOS] = ModelerControl("Z Position", -5, 5, 0.1f, 0);
+
 	controls[XSCALE] = ModelerControl("X Scale", 0, 3, 0.1f, 1.0f);
 	controls[YSCALE] = ModelerControl("Y Scale", 0, 3, 0.1f, 1.0f);
 	controls[ZSCALE] = ModelerControl("Z Scale", 0, 3, 0.1f, 1.0f);
+
     controls[HEIGHT] = ModelerControl("Height", 1, 2.5, 0.1f, 1);
 	controls[ROTATE] = ModelerControl("Rotate", -135, 135, 1, 0);
+
 	controls[FLOOR_SIZE] = ModelerControl("Floor Size", 0, 10, 0.1f, 5.0f);
 	controls[FLOOR_DEPTH] = ModelerControl("Floor Depth", 0, 10, 1, 4);
+
+	controls[DETAIL_LEVEL] = ModelerControl("Detail Level", 1, 5, 1, 2);
 
     ModelerApplication::Instance()->Init(&createSampleModel, controls, NUMCONTROLS);
     return ModelerApplication::Instance()->Run();

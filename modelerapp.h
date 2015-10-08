@@ -48,8 +48,11 @@ public:
 	int  Run();
 
     // Get and set slider values.
-    double GetControlValue(int controlNumber);
+	double GetControlValue(int controlNumber);
+	double GetMaxControlValue(int controlNumber);
+	double GetMinControlValue(int controlNumber);
     void   SetControlValue(int controlNumber, double value);
+	void   Swing(int control, double max, double min, double gap);
 
 private:
 	// Private for singleton
