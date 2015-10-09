@@ -109,4 +109,6 @@ void drawTexture();
 
 void drawTorus(double R, double r);
 
+void drawPyramid(double s);
+
 #endif

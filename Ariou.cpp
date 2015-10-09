@@ -52,6 +52,18 @@ void Ariou::draw() {
 			if (VAL(DETAIL_LEVEL) > 2) {
 				drawRoundCylinder(VAL(HEAD_SIZE) * 1.1, 0.2, 0.2);
 				glPushMatrix();
+					glRotated(50, 1, 0, 0);
+					glTranslated(0.9, 0.9, 0);
+					drawPyramid(VAL(EAR_SIZE));
+				glPopMatrix();
+
+				glPushMatrix();
+					glRotated(-50, 1, 0, 0);
+					glTranslated(-0.9, 0.9, 0);
+					drawPyramid(VAL(EAR_SIZE));
+				glPopMatrix();
+
+				glPushMatrix();
 					glTranslated(-0.5, 0.5, 0);
 					drawRoundCylinder(VAL(HEAD_SIZE) * 0.9, 0.2, 0.2);
 				glPopMatrix();

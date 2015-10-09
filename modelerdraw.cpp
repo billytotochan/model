@@ -587,3 +587,59 @@ void drawTorus(double R, double r)
 		glMatrixMode(savemode);
 	}
 }
+
+void drawPyramid(double size)
+{
+	ModelerDrawState *mds = ModelerDrawState::Instance();
+
+	_setupOpenGl();
+
+	if (mds->m_rayFile)
+	{
+		_dump_current_modelview();
+		fprintf(mds->m_rayFile,
+			"WTF");
+		_dump_current_material();
+		fprintf(mds->m_rayFile, "})\n");
+	}
+	else
+	{
+		drawTexture();
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, mds->texture[0]);
+		glBegin(GL_TRIANGLES);           
+			// Front
+			glColor3f(1.0f, 0.0f, 0.0f);     
+			glVertex3f(0.0f, 0.3f * size, 0.0f);
+			glColor3f(0.0f, 1.0f, 0.0f);     
+			glVertex3f(-0.3f, -0.3f, 0.3f);
+			glColor3f(0.0f, 0.0f, 1.0f);    
+			glVertex3f(0.3f, -0.3f, 0.3f);
+
+			// Right
+			glColor3f(1.0f, 0.0f, 0.0f);     
+			glVertex3f(0.0f, 0.3f * size, 0.0f);
+			glColor3f(0.0f, 0.0f, 1.0f);     
+			glVertex3f(0.3f, -0.3f, 0.3f);
+			glColor3f(0.0f, 1.0f, 0.0f);    
+			glVertex3f(0.3f, -0.3f, -0.3f);
+
+			// Back
+			glColor3f(1.0f, 0.0f, 0.0f);     
+			glVertex3f(0.0f, 0.3f * size, 0.0f);
+			glColor3f(0.0f, 1.0f, 0.0f);    
+			glVertex3f(0.3f, -0.3f, -0.3f);
+			glColor3f(0.0f, 0.0f, 1.0f);     
+			glVertex3f(-0.3f, -0.3f, -0.3f);
+
+			// Left
+			glColor3f(1.0f, 0.0f, 0.0f);      
+			glVertex3f(0.0f, 0.3f * size, 0.0f);
+			glColor3f(0.0f, 0.0f, 1.0f);      
+			glVertex3f(-0.3f, -0.3f, -0.3f);
+			glColor3f(0.0f, 1.0f, 0.0f);       
+			glVertex3f(-0.3f, -0.3f, 0.3f);
+		glEnd();   
+		glDisable(GL_TEXTURE_2D);
+	}
+}
