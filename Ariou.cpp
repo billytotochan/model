@@ -35,6 +35,7 @@ void Ariou::draw() {
 
 		glTranslated(VAL(XPOS), VAL(YPOS), VAL(ZPOS));
 		glScaled(VAL(XSCALE), VAL(YSCALE), VAL(ZSCALE));
+		setDiffuseColor(COLOR_YELLOW);
 
 		// Torus
 		if (VAL(DETAIL_LEVEL) > 1) {
@@ -51,7 +52,9 @@ void Ariou::draw() {
 			drawSphere(VAL(HEAD_SIZE));
 			if (VAL(DETAIL_LEVEL) > 2) {
 				drawRoundCylinder(VAL(HEAD_SIZE) * 1.1, 0.2, 0.2);
-				glPushMatrix();
+				
+				//ear
+				/*glPushMatrix();
 					glRotated(50, 1, 0, 0);
 					glTranslated(0.9, 0.9, 0);
 					drawPyramid(VAL(EAR_SIZE));
@@ -61,7 +64,7 @@ void Ariou::draw() {
 					glRotated(-50, 1, 0, 0);
 					glTranslated(-0.9, 0.9, 0);
 					drawPyramid(VAL(EAR_SIZE));
-				glPopMatrix();
+				glPopMatrix();*/
 
 				glPushMatrix();
 					glTranslated(-0.5, 0.5, 0);

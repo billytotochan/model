@@ -44,6 +44,7 @@ enum SampleModelControls
 #define COLOR_BLACK		0.0f, 0.0f, 0.0f
 #define COLOR_WHITE		1.0f, 1.0f, 1.0f
 #define COLOR_ORANGE	1.0f, 0.73f, 0.0f
+#define COLOR_YELLOW	1.0f, 1.0f, 0.0f
 
 // We'll be getting the instance of the application a lot; 
 // might as well have it as a macro.
