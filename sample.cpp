@@ -3,6 +3,7 @@
 #include "modelerview.h"
 #include "modelerapp.h"
 #include "modelerdraw.h"
+#include "Ariou.h"
 #include <FL/gl.h>
 #include <complex>
 #include <cmath>
@@ -22,8 +23,9 @@ public:
 // We need to make a creator function, mostly because of
 // nasty API stuff that we'd rather stay away from.
 ModelerView* createSampleModel(int x, int y, int w, int h, char *label)
-{ 
-    return new SampleModel(x,y,w,h,label); 
+{
+	//return new SampleModel(x, y, w, h, label);
+	return new Ariou(x, y, w, h, label);
 }
 
 // We are going to override (is that the right word?) the draw()
@@ -40,28 +42,10 @@ void SampleModel::draw()
 	setDiffuseColor(COLOR_RED);
 	glPushMatrix();
 	glScaled(VAL(FLOOR_SIZE), VAL(FLOOR_SIZE), VAL(FLOOR_SIZE));
-	drawSierpinskiTriangle(0, 0, 1,
-		0.86602540378443864676372317075293618347140262690519, 0, -0.5,
-		-0.86602540378443864676372317075293618347140262690519, 0, -0.5,
-		VAL(FLOOR_DEPTH)
-	);
-
 	glTranslated(0, -0.05, 0);
 	setDiffuseColor(COLOR_BLUE);
 	drawPolygon(18, 2);
 	glPopMatrix();
-
-	// draw the sample model
-	/*GLfloat maambient[] = { 0.79225f, 0.79225f, 0.79225f, 1.0f };
-	GLfloat madiffuse[] = { 0.50754f, 0.50754f, 0.50754f, 1.0f };
-	GLfloat maspecular[] = { 0.508273f, 0.508273f, 0.508273f, 0.508273f };
-	GLfloat mashiniess = 51.2f;
-	GLfloat maemi[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, maambient);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, madiffuse);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, maspecular);
-	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, mashiniess);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, maemi);*/
 
 	setAmbientColor(.1f,.1f,.1f);
 	setDiffuseColor(COLOR_GREEN);
@@ -110,10 +94,31 @@ int main()
     controls[HEIGHT] = ModelerControl("Height", 1, 2.5, 0.1f, 1);
 	controls[ROTATE] = ModelerControl("Rotate", -135, 135, 1, 0);
 
+	controls[HEAD_SIZE] = ModelerControl("Head Size", 0, 2, 0.1f, 1);
+	controls[HEAD_ROTATE] = ModelerControl("Head Rotate", -135, 135, 1, 0);
+
+	controls[UPPER_ARM_LENGTH] = ModelerControl("Upper Arm Length", 1, 5, 0.1f, 0.8);
+	controls[LEFT_UPPER_ARM_ROTATE_X] = ModelerControl("Left Upper Arm Rotate X", -90, 100, 1.0f, 80);
+	controls[LEFT_UPPER_ARM_ROTATE_Y] = ModelerControl("Left Upper Arm Rotate Y", -30, 90, 1.0f, 0);
+	controls[RIGHT_UPPER_ARM_ROTATE_X] = ModelerControl("Right Upper Arm Rotate X", -90, 100, 1.0f, -40);
+	controls[RIGHT_UPPER_ARM_ROTATE_Y] = ModelerControl("Right Upper Arm Rotate Y", -90, 30, 1.0f, 0);
+
+	controls[LOWER_ARM_LENGTH] = ModelerControl("Lower Arm Length", 1, 5, 0.1f, 0.8);
+	controls[LEFT_LOWER_ARM_ROTATE] = ModelerControl("Left Lower Arm Rotate", 20, 180, 1.0f, 80);
+	controls[RIGHT_LOWER_ARM_ROTATE] = ModelerControl("Right Lower Arm Rotate", 20, 180, 1.0f, 180);
+	controls[RIGHT_HAND_ANGLE] = ModelerControl("Right Hand Angle", 0, 70, 1, 0);
+	controls[LEFT_HAND_ANGLE] = ModelerControl("Left Hand Angle", 0, 70, 1, 0);
+
+	controls[LEG_LENGTH] = ModelerControl("Leg Length", 1, 5, 0.1f, 2);
+	controls[LEFT_LEG_ROTATE_X] = ModelerControl("Left Leg Rotate X", 0, 90, 1.0f, 80);
+	controls[LEFT_LEG_ROTATE_Y] = ModelerControl("Left Leg Rotate Y", -80, 90, 1.0f, 0);
+	controls[RIGHT_LEG_ROTATE_X] = ModelerControl("Right Leg Rotate X", 0, 90, 1.0f, 90);
+	controls[RIGHT_LEG_ROTATE_Y] = ModelerControl("Right Leg Rotate Y", -90, 80, 1.0f, 0);
+
 	controls[FLOOR_SIZE] = ModelerControl("Floor Size", 0, 10, 0.1f, 5.0f);
 	controls[FLOOR_DEPTH] = ModelerControl("Floor Depth", 0, 10, 1, 4);
 
-	controls[DETAIL_LEVEL] = ModelerControl("Detail Level", 1, 5, 1, 2);
+	controls[DETAIL_LEVEL] = ModelerControl("Detail Level", 1, 5, 1, 3);
 
     ModelerApplication::Instance()->Init(&createSampleModel, controls, NUMCONTROLS);
     return ModelerApplication::Instance()->Run();

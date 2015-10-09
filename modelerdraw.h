@@ -103,8 +103,10 @@ void drawSierpinskiTriangle(double x1, double y1, double z1,
 	double x3, double y3, double z3,
 	int depth);
 
-void drawPolygon(int n, float a);
+void drawPolygon(int n, double a);
 
 void drawTexture();
+
+void drawTorus(double R, double r);
 
 #endif

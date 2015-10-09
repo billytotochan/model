@@ -6,8 +6,6 @@
 #include <cmath>
 #include "bitmap.h"
 
-#define PI 3.14159265
-
 // ********************************************************
 // Support functions from previous version of modeler
 // ********************************************************
@@ -457,7 +455,7 @@ void drawSierpinskiTriangle(double x1, double y1, double z1,
 	}
 }
 
-void drawPolygon(int n, float a)
+void drawPolygon(int n, double a)
 {
 	ModelerDrawState *mds = ModelerDrawState::Instance();
 
@@ -480,8 +478,8 @@ void drawPolygon(int n, float a)
 		glNormal3d(0, 1, 0);
 		for (int i = 0; i < n; i++)
 		{
-			glTexCoord2f(cos(2 * PI * i / n), sin(2 * PI * i / n));
-			glVertex3d(a * cos(2 * PI * i / n), 0, a * sin(2 * PI * i / n));
+			glTexCoord2f(cos(2 * M_PI * i / n), sin(2 * M_PI * i / n));
+			glVertex3d(a * cos(2 * M_PI * i / n), 0, a * sin(2 * M_PI * i / n));
 		}
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
@@ -515,4 +513,77 @@ void drawTexture()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 	glDisable(GL_TEXTURE_2D);
 	delete[]data;
+}
+
+void drawTorus(double R, double r)
+{
+	ModelerDrawState *mds = ModelerDrawState::Instance();
+
+	_setupOpenGl();
+
+	if (mds->m_rayFile)
+	{
+		_dump_current_modelview();
+		fprintf(mds->m_rayFile,
+			"WTF");
+		_dump_current_material();
+		fprintf(mds->m_rayFile, "})))\n");
+	}
+	else
+	{
+		/* remember which matrix mode OpenGL was in. */
+		int savemode;
+		glGetIntegerv(GL_MATRIX_MODE, &savemode);
+
+		/* switch to the model matrix and scale by x,y,z. */
+		int n;
+
+		switch (mds->m_quality)
+		{
+		case HIGH:
+			n = 32; break;
+		case MEDIUM:
+			n = 20; break;
+		case LOW:
+			n = 12; break;
+		case POOR:
+			n = 8; break;
+		}
+
+		int N = 2 * n;
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glPushAttrib(GL_CURRENT_BIT);
+
+		for (int j = 0; j < N; j++)
+		{
+			glRotated(360.0f / N, 0, 1, 0);
+			float next_Cos = cos(2 * M_PI * (0 + 1) / N);
+			float next_Sin = sin(2 * M_PI * (0 + 1) / N);
+
+			glBindTexture(GL_TEXTURE_2D, 1);
+			glBegin(GL_TRIANGLE_STRIP);
+
+			for (int i = 0; i < n + 1; i++)
+			{
+				float Sin = sin(2 * M_PI * i / n);
+				float Cos = cos(2 * M_PI * i / n);
+				glNormal3d(Cos, Sin, 0);
+				glTexCoord2f(0.0f, 1.0f * i / n);
+				glVertex3d(R + Cos * r, Sin * r, 0);
+
+				glNormal3d(Cos * next_Cos, Sin, Cos * next_Sin);
+				glTexCoord2f(1.0f, 1.0f * i / n);
+				glVertex3d(next_Cos * R + Cos * r * next_Cos, Sin * r, next_Sin * R + Cos * r * next_Sin);
+			}
+
+			glEnd();
+		}
+
+		/* restore the model matrix stack, and switch back to the matrix
+		mode we were in. */
+		glPopMatrix();
+		glPopAttrib();
+		glMatrixMode(savemode);
+	}
 }
