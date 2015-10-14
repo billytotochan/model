@@ -111,9 +111,9 @@ int main()
 	controls[LEFT_HAND_ANGLE] = ModelerControl("Left Hand Angle", 0, 70, 1, 0);
 
 	controls[LEG_LENGTH] = ModelerControl("Leg Length", 1, 5, 0.1f, 2);
-	controls[LEFT_LEG_ROTATE_X] = ModelerControl("Left Leg Rotate X", 0, 90, 1.0f, 80);
+	controls[LEFT_LEG_ROTATE_X] = ModelerControl("Left Leg Rotate X", 30, 150, 1.0f, 40);
 	controls[LEFT_LEG_ROTATE_Y] = ModelerControl("Left Leg Rotate Y", -80, 90, 1.0f, 0);
-	controls[RIGHT_LEG_ROTATE_X] = ModelerControl("Right Leg Rotate X", 0, 90, 1.0f, 90);
+	controls[RIGHT_LEG_ROTATE_X] = ModelerControl("Right Leg Rotate X", 30, 150, 1.0f, 140);
 	controls[RIGHT_LEG_ROTATE_Y] = ModelerControl("Right Leg Rotate Y", -90, 80, 1.0f, 0);
 
 	controls[FLOOR_SIZE] = ModelerControl("Floor Size", 0, 10, 0.1f, 5.0f);
