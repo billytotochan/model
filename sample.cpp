@@ -95,7 +95,7 @@ int main()
 	controls[ROTATE] = ModelerControl("Rotate", -135, 135, 1, 0);
 
 	controls[HEAD_SIZE] = ModelerControl("Head Size", 0.8, 2, 0.1f, 1);
-	controls[HEAD_ROTATE] = ModelerControl("Head Rotate", -90, 90, 1, 0);
+	controls[HEAD_ROTATE] = ModelerControl("Head Rotate", -70, 70, 1, 0);
 	controls[EAR_SIZE] = ModelerControl("Ear Size", 0, 2, 0.1f, 1);
 
 	controls[UPPER_ARM_LENGTH] = ModelerControl("Upper Arm Length", 1, 5, 0.1f, 0.8);

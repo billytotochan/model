@@ -604,8 +604,8 @@ void drawPyramid(double size)
 	}
 	else
 	{
-		drawTexture();
-		glEnable(GL_TEXTURE_2D);
+		//drawTexture();
+		//glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, mds->texture[0]);
 		glBegin(GL_TRIANGLES);           
 			// Front
@@ -640,6 +640,6 @@ void drawPyramid(double size)
 			glColor3f(0.0f, 1.0f, 0.0f);       
 			glVertex3f(-0.3f, -0.3f, 0.1f);
 		glEnd();   
-		glDisable(GL_TEXTURE_2D);
+		//glDisable(GL_TEXTURE_2D);
 	}
 }
