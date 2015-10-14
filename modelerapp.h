@@ -52,7 +52,7 @@ public:
 	double GetMaxControlValue(int controlNumber);
 	double GetMinControlValue(int controlNumber);
     void   SetControlValue(int controlNumber, double value);
-	void   Swing(int control, double max, double min, double gap);
+	void   Swing(int control, double delta);
 
 private:
 	// Private for singleton

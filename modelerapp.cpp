@@ -188,13 +188,13 @@ void ModelerApplication::RedrawLoop(void*)
 	Fl::add_timeout(0.025, ModelerApplication::RedrawLoop, NULL);
 }
 
-void ModelerApplication::Swing(int control, double max, double min, double gap)
+void ModelerApplication::Swing(int control, double delta)
 {
 	static bool direction[NUMCONTROLS] = {};
 	if (ModelerApplication::Instance()->m_animating)
 	{
 		double value = VAL(control);
-		value = (direction[control] ? value + gap : value - gap);
+		value = (direction[control] ? value + delta : value - delta);
 		if (value >= MAX(control))
 		{
 			value = MAX(control);
