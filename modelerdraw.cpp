@@ -612,33 +612,33 @@ void drawPyramid(double size)
 			glColor3f(1.0f, 0.0f, 0.0f);     
 			glVertex3f(0.0f, 0.3f * size, 0.0f);
 			glColor3f(0.0f, 1.0f, 0.0f);     
-			glVertex3f(-0.3f, -0.3f, 0.3f);
+			glVertex3f(-0.3f, -0.3f, 0.1f);
 			glColor3f(0.0f, 0.0f, 1.0f);    
-			glVertex3f(0.3f, -0.3f, 0.3f);
+			glVertex3f(0.3f, -0.3f, 0.1f);
 
 			// Right
 			glColor3f(1.0f, 0.0f, 0.0f);     
 			glVertex3f(0.0f, 0.3f * size, 0.0f);
 			glColor3f(0.0f, 0.0f, 1.0f);     
-			glVertex3f(0.3f, -0.3f, 0.3f);
+			glVertex3f(0.3f, -0.3f, 0.1f);
 			glColor3f(0.0f, 1.0f, 0.0f);    
-			glVertex3f(0.3f, -0.3f, -0.3f);
+			glVertex3f(0.3f, -0.3f, -0.1f);
 
 			// Back
 			glColor3f(1.0f, 0.0f, 0.0f);     
 			glVertex3f(0.0f, 0.3f * size, 0.0f);
 			glColor3f(0.0f, 1.0f, 0.0f);    
-			glVertex3f(0.3f, -0.3f, -0.3f);
+			glVertex3f(0.3f, -0.3f, -0.1f);
 			glColor3f(0.0f, 0.0f, 1.0f);     
-			glVertex3f(-0.3f, -0.3f, -0.3f);
+			glVertex3f(-0.3f, -0.3f, -0.1f);
 
 			// Left
 			glColor3f(1.0f, 0.0f, 0.0f);      
 			glVertex3f(0.0f, 0.3f * size, 0.0f);
 			glColor3f(0.0f, 0.0f, 1.0f);      
-			glVertex3f(-0.3f, -0.3f, -0.3f);
+			glVertex3f(-0.3f, -0.3f, -0.1f);
 			glColor3f(0.0f, 1.0f, 0.0f);       
-			glVertex3f(-0.3f, -0.3f, 0.3f);
+			glVertex3f(-0.3f, -0.3f, 0.1f);
 		glEnd();   
 		glDisable(GL_TEXTURE_2D);
 	}
