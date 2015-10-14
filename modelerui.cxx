@@ -232,11 +232,19 @@ void ModelerUserInterface::cb_Poor(Fl_Menu_* o, void* v) {
 
 // Callback function to look at origin again.
 inline void ModelerUserInterface::cb_Focus_i(Fl_Menu_*, void*) {
-	m_modelerView->m_camera->setLookAt( Vec3f(0, 0, 0) );
+	m_modelerView->m_camera->setLookAt(Vec3f(0, 0, 0));
 	m_modelerView->redraw();
 }
 void ModelerUserInterface::cb_Focus(Fl_Menu_* o, void* v) {
-	((ModelerUserInterface*)(o->parent()->user_data()))->cb_Focus_i(o,v);
+	((ModelerUserInterface*)(o->parent()->user_data()))->cb_Focus_i(o, v);
+}
+inline void ModelerUserInterface::cb_Frameall_i(Fl_Menu_*, void*) {
+	m_modelerView->m_camera->setLookAt(Vec3f(0, 0, 0));
+	m_modelerView->m_camera->setDolly(-50.0f);
+	m_modelerView->redraw();
+}
+void ModelerUserInterface::cb_Frameall(Fl_Menu_* o, void* v) {
+	((ModelerUserInterface*)(o->parent()->user_data()))->cb_Frameall_i(o, v);
 }
 
 inline void ModelerUserInterface::cb_m_controlsAnimOnMenu_i(Fl_Menu_*, void*) {
@@ -261,8 +269,9 @@ Fl_Menu_Item ModelerUserInterface::menu_m_controlsMenuBar[] = {
  {"High Quality", 0,  (Fl_Callback*)ModelerUserInterface::cb_High, 0, 8, 0, 0, 14, 0},
  {"Medium Quality", 0,  (Fl_Callback*)ModelerUserInterface::cb_Medium, 0, 12, 0, 0, 14, 0},
  {"Low Quality", 0,  (Fl_Callback*)ModelerUserInterface::cb_Low, 0, 8, 0, 0, 14, 0},
- {"Poor Quality", 0,  (Fl_Callback*)ModelerUserInterface::cb_Poor, 0, 136, 0, 0, 14, 0},
- {"Focus on Origin", 0,  (Fl_Callback*)ModelerUserInterface::cb_Focus, 0, 0, 0, 0, 14, 0},
+ { "Poor Quality", 0, (Fl_Callback*)ModelerUserInterface::cb_Poor, 0, 136, 0, 0, 14, 0 },
+ { "Focus on Origin", 0, (Fl_Callback*)ModelerUserInterface::cb_Focus, 0, 0, 0, 0, 14, 0 },
+ { "Frame All", 0, (Fl_Callback*)ModelerUserInterface::cb_Frameall, 0, 0, 0, 0, 14, 0 },
  {0},
  {"Animate", 0,  0, 0, 64, 0, 0, 14, 0},
  {"Enable", 0,  (Fl_Callback*)ModelerUserInterface::cb_m_controlsAnimOnMenu, 0, 2, 0, 0, 14, 0},

@@ -116,7 +116,7 @@ int main()
 	controls[RIGHT_LEG_ROTATE_X] = ModelerControl("Right Leg Rotate X", 30, 150, 1.0f, 140);
 	controls[RIGHT_LEG_ROTATE_Y] = ModelerControl("Right Leg Rotate Y", -90, 80, 1.0f, 0);
 
-	controls[FLOOR_SIZE] = ModelerControl("Floor Size", 0, 10, 0.1f, 5.0f);
+	controls[FLOOR_SIZE] = ModelerControl("Floor Size", 0, 8, 0.1f, 5.0f);
 	controls[FLOOR_DEPTH] = ModelerControl("Floor Depth", 0, 10, 1, 4);
 
 	controls[DETAIL_LEVEL] = ModelerControl("Detail Level", 1, 5, 1, 3);
