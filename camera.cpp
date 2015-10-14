@@ -181,6 +181,34 @@ void Camera::applyViewingTransform() {
 	gluLookAt(	mPosition[0], mPosition[1], mPosition[2],
 				mLookAt[0],   mLookAt[1],   mLookAt[2],
 				mUpVector[0], mUpVector[1], mUpVector[2]);
+	lookAt(mPosition, mLookAt, mUpVector);
+}
+
+void Camera::lookAt(Vec3f eye, Vec3f at, Vec3f up)
+{
+	at = at - eye;
+	at.normalize();
+
+	GLfloat rvx = at[1] * up[2] - at[2] * up[1];
+	GLfloat rvy = at[2] * up[0] - at[0] * up[2];
+	GLfloat rvz = at[0] * up[1] - at[1] * up[0];
+	Vec3f rv = Vec3f(rvx, rvy, rvz);
+	rv.normalize();
+
+	GLfloat nux = rv[1] * at[2] - rv[2] * at[1];
+	GLfloat nuy = rv[2] * at[0] - rv[0] * at[2];
+	GLfloat nuz = rv[0] * at[1] - rv[1] * at[0];
+
+	GLfloat mat[16] =
+	{
+		rv[0], nux, -at[0], 0,
+		rv[1], nuy, -at[1], 0,
+		rv[2], nuz, -at[2], 0,
+		0, 0, 0, 1
+	};
+
+	glMultMatrixf(mat);
+	glTranslatef(-eye[0], -eye[1], -eye[2]);
 }
 
 #pragma warning(pop)
