@@ -54,17 +54,17 @@ void Ariou::draw() {
 				drawRoundCylinder(VAL(HEAD_SIZE) * 1.1, 0.2, 0.2);
 				
 				//ear
-				/*glPushMatrix();
-					glRotated(50, 1, 0, 0);
-					glTranslated(0.9, 0.9, 0);
+				glPushMatrix();
+					glTranslated(0.7, 0.9, 0);
+					glRotated(-20, 0, 0, 1);
 					drawPyramid(VAL(EAR_SIZE));
 				glPopMatrix();
 
 				glPushMatrix();
-					glRotated(-50, 1, 0, 0);
-					glTranslated(-0.9, 0.9, 0);
+					glTranslated(-0.7, 0.9, 0);
+					glRotated(20, 0, 0, 1);
 					drawPyramid(VAL(EAR_SIZE));
-				glPopMatrix();*/
+				glPopMatrix();
 
 				glPushMatrix();
 					glTranslated(-0.5, 0.5, 0);
