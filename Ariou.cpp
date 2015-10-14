@@ -4,15 +4,15 @@ void Ariou::draw() {
 	ModelerView::draw();
 
 	ModelerApplication::Instance()->Swing(LEFT_UPPER_ARM_ROTATE_X, MAX(LEFT_UPPER_ARM_ROTATE_X), MIN(LEFT_UPPER_ARM_ROTATE_X), 3.1);
-	ModelerApplication::Instance()->Swing(LEFT_UPPER_ARM_ROTATE_Y, MAX(LEFT_UPPER_ARM_ROTATE_Y), MIN(LEFT_UPPER_ARM_ROTATE_Y), 2.5);
+	//ModelerApplication::Instance()->Swing(LEFT_UPPER_ARM_ROTATE_Y, MAX(LEFT_UPPER_ARM_ROTATE_Y), MIN(LEFT_UPPER_ARM_ROTATE_Y), 2.5);
 
 	ModelerApplication::Instance()->Swing(HEAD_ROTATE, MAX(HEAD_ROTATE), MIN(HEAD_ROTATE), 1);
 
 	ModelerApplication::Instance()->Swing(RIGHT_UPPER_ARM_ROTATE_X, MAX(RIGHT_UPPER_ARM_ROTATE_X), MIN(RIGHT_UPPER_ARM_ROTATE_X), 1.1);
 	ModelerApplication::Instance()->Swing(RIGHT_UPPER_ARM_ROTATE_Y, MAX(RIGHT_UPPER_ARM_ROTATE_Y), MIN(RIGHT_UPPER_ARM_ROTATE_Y), 4.5);
 
-	ModelerApplication::Instance()->Swing(LEFT_LEG_ROTATE_X, MAX(LEFT_LEG_ROTATE_X), MIN(LEFT_LEG_ROTATE_X), 2.1);
-	ModelerApplication::Instance()->Swing(RIGHT_LEG_ROTATE_X, MAX(RIGHT_LEG_ROTATE_X), MIN(RIGHT_LEG_ROTATE_X), 2.1);
+	ModelerApplication::Instance()->Swing(LEFT_LEG_ROTATE_X, MAX(LEFT_LEG_ROTATE_X), MIN(LEFT_LEG_ROTATE_X), 6.1);
+	ModelerApplication::Instance()->Swing(RIGHT_LEG_ROTATE_X, MAX(RIGHT_LEG_ROTATE_X), MIN(RIGHT_LEG_ROTATE_X), 6.1);
 
 	setAmbientColor(.1f, .1f, .1f);
 	setDiffuseColor(COLOR_BLUE);
