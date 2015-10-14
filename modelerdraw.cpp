@@ -509,7 +509,7 @@ void drawTexture()
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	int height;
 	int width;
-	unsigned char* data = readBMP("res/floor.bmp", width, height);
+	unsigned char* data = readBMP("res/chino.bmp", width, height);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 	glDisable(GL_TEXTURE_2D);
 	delete[]data;
