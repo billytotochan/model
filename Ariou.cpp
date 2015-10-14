@@ -43,6 +43,7 @@ void Ariou::draw() {
 
 		glTranslated(VAL(XPOS), VAL(YPOS), VAL(ZPOS));
 		glScaled(VAL(XSCALE), VAL(YSCALE), VAL(ZSCALE));
+		glRotated(VAL(ROTATE), 0, 1, 0);
 		setDiffuseColor(COLOR_YELLOW);
 
 		// Torus
@@ -59,28 +60,31 @@ void Ariou::draw() {
 			glRotated(VAL(HEAD_ROTATE), 0.0, 1.0, 0.0);
 			drawSphere(VAL(HEAD_SIZE));
 			if (VAL(DETAIL_LEVEL) > 2) {
+
+				// Nose
 				drawRoundCylinder(VAL(HEAD_SIZE) * 1.1, 0.2, 0.2);
 				
-				//ear
+				// Ear
 				glPushMatrix();
-					glTranslated(0.7, 0.9, 0);
+					glTranslated( 0.9 / sqrt(0.9*0.9 + 1.1*1.1) * VAL(HEAD_SIZE), 1.1 / sqrt(0.9*0.9 + 1.1*1.1) * VAL(HEAD_SIZE), 0);
 					glRotated(-20, 0, 0, 1);
 					drawPyramid(VAL(EAR_SIZE));
 				glPopMatrix();
 
 				glPushMatrix();
-					glTranslated(-0.7, 0.9, 0);
-					glRotated(20, 0, 0, 1);
+				glTranslated( -0.9 / sqrt(0.9*0.9 + 1.1*1.1) * VAL(HEAD_SIZE), 1.1 / sqrt(0.9*0.9 + 1.1*1.1) * VAL(HEAD_SIZE), 0);
+				glRotated(20, 0, 0, 1);
 					drawPyramid(VAL(EAR_SIZE));
 				glPopMatrix();
-
+				
+				// Eyes
 				glPushMatrix();
-					glTranslated(-0.5, 0.5, 0);
-					drawRoundCylinder(VAL(HEAD_SIZE) * 0.9, 0.2, 0.2);
+				glTranslated(-0.5 / sqrt(0.5*0.5 * 2) * VAL(HEAD_SIZE) * 0.5, 0.5 / sqrt(0.5*0.5 * 2) * VAL(HEAD_SIZE) * 0.5, VAL(HEAD_SIZE) - 0.9);
+					drawRoundCylinder( 0.9, 0.2, 0.2);
 				glPopMatrix();
 				glPushMatrix();
-					glTranslated(0.5, 0.5, 0);
-					drawRoundCylinder(VAL(HEAD_SIZE) * 0.9, 0.2, 0.2);
+				glTranslated( 0.5 / sqrt(0.5*0.5 * 2) * VAL(HEAD_SIZE) * 0.5, 0.5 / sqrt(0.5*0.5 * 2) * VAL(HEAD_SIZE) * 0.5, VAL(HEAD_SIZE) - 0.9);
+					drawRoundCylinder( 0.9, 0.2, 0.2);
 				glPopMatrix();
 			}
 		glPopMatrix();

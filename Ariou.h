@@ -5,6 +5,7 @@
 #include "modelerdraw.h"
 #include "modelerglobals.h"
 #include "modelerapp.h"
+#include <cmath>
 
 class Ariou : public ModelerView {
 
