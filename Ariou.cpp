@@ -25,7 +25,7 @@ void Ariou::draw() {
 
 	glTranslated(0, -0.05, 0);
 	setDiffuseColor(COLOR_WHITE);
-	drawPolygon(7, 2);
+	drawPolygon(16, 2);
 	glPopMatrix();
 
 
@@ -41,7 +41,8 @@ void Ariou::draw() {
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, madiffuse);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, maspecular);
 		glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
-		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, maemi);*/
+		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, maemi);
+		*/
 
 		glTranslated(VAL(XPOS), VAL(YPOS), VAL(ZPOS));
 		glScaled(VAL(XSCALE), VAL(YSCALE), VAL(ZSCALE));
