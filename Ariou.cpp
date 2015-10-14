@@ -1,5 +1,4 @@
 #include "Ariou.h"
-#include "modelerapp.h"
 
 void Ariou::draw() {
 	ModelerView::draw();
@@ -11,6 +10,9 @@ void Ariou::draw() {
 
 	ModelerApplication::Instance()->Swing(RIGHT_UPPER_ARM_ROTATE_X, MAX(RIGHT_UPPER_ARM_ROTATE_X), MIN(RIGHT_UPPER_ARM_ROTATE_X), 1.1);
 	ModelerApplication::Instance()->Swing(RIGHT_UPPER_ARM_ROTATE_Y, MAX(RIGHT_UPPER_ARM_ROTATE_Y), MIN(RIGHT_UPPER_ARM_ROTATE_Y), 4.5);
+
+	ModelerApplication::Instance()->Swing(LEFT_LEG_ROTATE_X, MAX(LEFT_LEG_ROTATE_X), MIN(LEFT_LEG_ROTATE_X), 2.1);
+	ModelerApplication::Instance()->Swing(RIGHT_LEG_ROTATE_X, MAX(RIGHT_LEG_ROTATE_X), MIN(RIGHT_LEG_ROTATE_X), 2.1);
 
 	setAmbientColor(.1f, .1f, .1f);
 	setDiffuseColor(COLOR_BLUE);
@@ -129,13 +131,13 @@ void Ariou::draw() {
 			glPushMatrix();
 				glTranslated(-0.03, -0.15, VAL(LOWER_ARM_LENGTH) - 0.1);
 				glRotated(VAL(RIGHT_HAND_ANGLE), 0, 1, 0);
-				drawBox(0.03, 0.25, 0.5);
+				drawCylinder(0.8, 0.15, 0.0001);
 			glPopMatrix();
 
 			glPushMatrix();
 				glTranslated(0.03, -0.15, VAL(LOWER_ARM_LENGTH) - 0.1);
 				glRotated(-VAL(RIGHT_HAND_ANGLE), 0, 1, 0);
-				drawBox(0.03, 0.25, 0.5);
+				drawCylinder(0.8, 0.15, 0.0001);
 			glPopMatrix();
 
 		glPopMatrix();
@@ -157,13 +159,17 @@ void Ariou::draw() {
 			glPushMatrix();
 				glTranslated(-0.03, 0, VAL(LOWER_ARM_LENGTH) - 0.1);
 				glRotated(VAL(LEFT_HAND_ANGLE), 0, 1, 0);
-				drawCylinder(0.8, 0.15, 0.0001);
+				drawBox(0.03, 0.25, 0.5);
 			glPopMatrix();
 
 			glPushMatrix();
 				glTranslated(0.03, 0, VAL(LOWER_ARM_LENGTH) - 0.1);
 				glRotated(-VAL(LEFT_HAND_ANGLE), 0, 1, 0);
-				drawCylinder(0.8, 0.15, 0.0001);
+				drawBox(0.03, 0.25, 0.5);
+				if (VAL(DETAIL_LEVEL) > 3) {
+					glRotated(90, 0, 0, 1);
+					drawCylinder(5, 0.02, 0.02);
+				}
 			glPopMatrix();
 
 		glPopMatrix();
@@ -175,7 +181,7 @@ void Ariou::draw() {
 			glRotated(VAL(RIGHT_LEG_ROTATE_Y), 0.0, 1.0, 0.0);
 			drawRoundCylinder(VAL(LEG_LENGTH) - 0.15, 0.3, 0.4);
 			glTranslated(0, 0, VAL(LEG_LENGTH) * 0.85f);
-			glRotated(90, 1, 0, 0);
+			glRotated(70, 1, 0, 0);
 			drawTorus(VAL(FEET_SIZE), VAL(FEET_SIZE) / 4);
 
 		glPopMatrix();
@@ -187,7 +193,7 @@ void Ariou::draw() {
 			glRotated(VAL(LEFT_LEG_ROTATE_Y), 0.0, 1.0, 0.0);
 			drawRoundCylinder(VAL(LEG_LENGTH) - 0.15, 0.3, 0.4);
 			glTranslated(0, 0, VAL(LEG_LENGTH) * 0.85f);
-			glRotated(90, 1, 0, 0);
+			glRotated(70, 1, 0, 0);
 			drawTorus(VAL(FEET_SIZE), VAL(FEET_SIZE) / 4);
 
 		glPopMatrix();
