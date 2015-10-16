@@ -115,6 +115,12 @@ int main()
 	controls[LEFT_LEG_ROTATE_Y] = ModelerControl("Left Leg Rotate Y", -80, 90, 1.0f, 0);
 	controls[RIGHT_LEG_ROTATE_X] = ModelerControl("Right Leg Rotate X", 30, 150, 1.0f, 140);
 	controls[RIGHT_LEG_ROTATE_Y] = ModelerControl("Right Leg Rotate Y", -90, 80, 1.0f, 0);
+	
+    controls[TORUS_R] = ModelerControl("Torus R", 0, 10, 0.1f, 0.6);
+    controls[TORUS_r] = ModelerControl("Torus r", 0, 10, 0.1f, 0.15);
+
+	controls[LS_DEPTH] = ModelerControl("LS Depth", 1, 4, 1, 0);
+	controls[LS_ANGLE] = ModelerControl("LS Angle", 20, 100, 1, 0);
 
 	controls[FLOOR_SIZE] = ModelerControl("Floor Size", 0, 8, 0.1f, 5.0f);
 	controls[FLOOR_DEPTH] = ModelerControl("Floor Depth", 0, 10, 1, 4);

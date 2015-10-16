@@ -193,18 +193,18 @@ void ModelerApplication::Swing(int control, double delta)
 	static bool direction[NUMCONTROLS] = {};
 	if (ModelerApplication::Instance()->m_animating)
 	{
-		double value = VAL(control);
-		value = (direction[control] ? value + delta : value - delta);
-		if (value >= MAX(control))
+		double current = VAL(control);
+		current = (direction[control] ? current + delta : current - delta);
+		if (current >= MAX(control))
 		{
-			value = MAX(control);
+			current = MAX(control);
 			direction[control] = 0;
 		}
-		if (value <= MIN(control))
+		if (current <= MIN(control))
 		{
-			value = MIN(control);
+			current = MIN(control);
 			direction[control] = 1;
 		}
-		SETVAL(control, value);
+		SETVAL(control, current);
 	}
 }

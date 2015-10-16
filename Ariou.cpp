@@ -14,6 +14,9 @@ void Ariou::draw() {
 	ModelerApplication::Instance()->Swing(LEFT_LEG_ROTATE_X, 6.1);
 	ModelerApplication::Instance()->Swing(RIGHT_LEG_ROTATE_X, 6.1);
 
+	ModelerApplication::Instance()->Swing(LS_DEPTH, 0.02);
+	ModelerApplication::Instance()->Swing(LS_ANGLE, 0.15);
+
 	setAmbientColor(.1f, .1f, .1f);
 	setDiffuseColor(COLOR_RED);
 	glPushMatrix();
@@ -66,26 +69,28 @@ void Ariou::draw() {
 
 				// Nose
 				drawRoundCylinder(VAL(HEAD_SIZE) * 1.1, 0.2, 0.2);
-				
+
 				// Ear
 				glPushMatrix();
-					glTranslated( 0.9 / sqrt(0.9*0.9 + 1.1*1.1) * VAL(HEAD_SIZE), 1.1 / sqrt(0.9*0.9 + 1.1*1.1) * VAL(HEAD_SIZE), 0);
-					glRotated(-20, 0, 0, 1);
-					drawPyramid(VAL(EAR_SIZE));
+				glTranslated(0.9 / sqrt(0.9*0.9 + 1.1*1.1) * VAL(HEAD_SIZE), 1.1 / sqrt(0.9*0.9 + 1.1*1.1) * VAL(HEAD_SIZE), 0);
+				glRotated(-20, 0, 0, 1);
+				drawPyramid(VAL(EAR_SIZE));
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslated( -0.9 / sqrt(0.9*0.9 + 1.1*1.1) * VAL(HEAD_SIZE), 1.1 / sqrt(0.9*0.9 + 1.1*1.1) * VAL(HEAD_SIZE), 0);
+				glTranslated(-0.9 / sqrt(0.9*0.9 + 1.1*1.1) * VAL(HEAD_SIZE), 1.1 / sqrt(0.9*0.9 + 1.1*1.1) * VAL(HEAD_SIZE), 0);
 				glRotated(20, 0, 0, 1);
-					drawPyramid(VAL(EAR_SIZE));
+				drawPyramid(VAL(EAR_SIZE));
 				glPopMatrix();
 				
 				// Eyes
 				glPushMatrix();
+				setDiffuseColor(COLOR_RED);
 				glTranslated(-0.5 / sqrt(0.5*0.5 * 2) * VAL(HEAD_SIZE) * 0.5, 0.5 / sqrt(0.5*0.5 * 2) * VAL(HEAD_SIZE) * 0.5, VAL(HEAD_SIZE) - 0.9);
 					drawRoundCylinder( 0.9, 0.2, 0.2);
 				glPopMatrix();
 				glPushMatrix();
+				setDiffuseColor(COLOR_RED);
 				glTranslated( 0.5 / sqrt(0.5*0.5 * 2) * VAL(HEAD_SIZE) * 0.5, 0.5 / sqrt(0.5*0.5 * 2) * VAL(HEAD_SIZE) * 0.5, VAL(HEAD_SIZE) - 0.9);
 					drawRoundCylinder( 0.9, 0.2, 0.2);
 				glPopMatrix();
@@ -96,6 +101,7 @@ void Ariou::draw() {
 			//body
 			// a.k.a. torso/trunk
 			glPushMatrix();
+			setDiffuseColor(COLOR_YELLOW);
 			glTranslated(0, 0.05 + VAL(LEG_LENGTH), 0);
 			glRotated(-90, 1.0, 0.0, 0.0);
 			drawRoundCylinder(VAL(HEIGHT), 0.7, 0.6);
@@ -109,7 +115,7 @@ void Ariou::draw() {
 			glPopMatrix();
 
 			// the waist
-			if (VAL(DETAIL_LEVEL) > 2) {
+			if (VAL(DETAIL_LEVEL) > 3) {
 				glPushMatrix();
 				glTranslated(0, 0, 0.5);
 				glRotated(90, 1, 0, 0);
@@ -119,69 +125,86 @@ void Ariou::draw() {
 
 			glPopMatrix();
 
-			//right arm
-			glPushMatrix();
-			glTranslated(-0.7 - 0.20, VAL(LEG_LENGTH) + 0.05 + VAL(HEIGHT) * 0.9f, 0);
-			glTranslated(0.15, 0, 0);
-			glRotated(VAL(RIGHT_UPPER_ARM_ROTATE_X), 1.0, 0.0, 0.0);
-			glRotated(VAL(RIGHT_UPPER_ARM_ROTATE_Y), 0.0, 1.0, 0.0);
-			glTranslated(-0.15, 0, 0);
-			drawRoundCylinder(VAL(UPPER_ARM_LENGTH), 0.22, 0.15);
+			if (VAL(DETAIL_LEVEL) > 2) {
+				//right arm
+				glPushMatrix();
+				glTranslated(-0.7 - 0.20, VAL(LEG_LENGTH) + 0.05 + VAL(HEIGHT) * 0.9f, 0);
+				glTranslated(0.15, 0, 0);
+				glRotated(VAL(RIGHT_UPPER_ARM_ROTATE_X), 1.0, 0.0, 0.0);
+				glRotated(VAL(RIGHT_UPPER_ARM_ROTATE_Y), 0.0, 1.0, 0.0);
+				glTranslated(-0.15, 0, 0);
+				drawRoundCylinder(VAL(UPPER_ARM_LENGTH), 0.22, 0.15);
 
-			// lower arm
-			glTranslated(0, 0, VAL(UPPER_ARM_LENGTH) - 0.1);
-			glRotated(VAL(RIGHT_LOWER_ARM_ROTATE) - 180, 1, 0, 0);
-			drawRoundCylinder(VAL(LOWER_ARM_LENGTH), 0.15, 0.20);
+				// lower arm
+				glTranslated(0, 0, VAL(UPPER_ARM_LENGTH) - 0.1);
+				glRotated(VAL(RIGHT_LOWER_ARM_ROTATE) - 180, 1, 0, 0);
+				drawRoundCylinder(VAL(LOWER_ARM_LENGTH), 0.15, 0.20);
 
-			// hand
-			glPushMatrix();
-			glTranslated(-0.03, -0.15, VAL(LOWER_ARM_LENGTH) - 0.1);
-			glRotated(VAL(RIGHT_HAND_ANGLE), 0, 1, 0);
-			drawCylinder(0.8, 0.15, 0.0001);
-			glPopMatrix();
+				// hand
+				glPushMatrix();
+				glTranslated(-0.03, -0.15, VAL(LOWER_ARM_LENGTH) - 0.1);
+				glRotated(VAL(RIGHT_HAND_ANGLE), 0, 1, 0);
+				drawCylinder(0.8, 0.15, 0.0001);
+				glPopMatrix();
 
-			glPushMatrix();
-			glTranslated(0.03, -0.15, VAL(LOWER_ARM_LENGTH) - 0.1);
-			glRotated(-VAL(RIGHT_HAND_ANGLE), 0, 1, 0);
-			drawCylinder(0.8, 0.15, 0.0001);
-			glPopMatrix();
+				glPushMatrix();
+				glTranslated(0.03, -0.15, VAL(LOWER_ARM_LENGTH) - 0.1);
+				glRotated(-VAL(RIGHT_HAND_ANGLE), 0, 1, 0);
+				drawCylinder(0.8, 0.15, 0.0001);
+				glPopMatrix();
 
-			glPopMatrix();
+				glPopMatrix();
 
-			//left arm
-			glPushMatrix();
-			glTranslated(0.7 + 0.20, VAL(LEG_LENGTH) + 0.05 + VAL(HEIGHT) * 0.9f, 0);
-			glTranslated(-0.15, 0, 0);
-			glRotated(VAL(LEFT_UPPER_ARM_ROTATE_X), 1.0, 0.0, 0.0);
-			glRotated(VAL(LEFT_UPPER_ARM_ROTATE_Y), 0.0, 1.0, 0.0);
-			glTranslated(0.15, 0, 0);
-			drawRoundCylinder(VAL(UPPER_ARM_LENGTH), 0.22, 0.15);
+				//left arm
+				glPushMatrix();
+				glTranslated(0.7 + 0.20, VAL(LEG_LENGTH) + 0.05 + VAL(HEIGHT) * 0.9f, 0);
+				glTranslated(-0.15, 0, 0);
+				glRotated(VAL(LEFT_UPPER_ARM_ROTATE_X), 1.0, 0.0, 0.0);
+				glRotated(VAL(LEFT_UPPER_ARM_ROTATE_Y), 0.0, 1.0, 0.0);
+				glTranslated(0.15, 0, 0);
+				drawRoundCylinder(VAL(UPPER_ARM_LENGTH), 0.22, 0.15);
 
-			glTranslated(0, 0, VAL(UPPER_ARM_LENGTH) - 0.1);
-			glRotated(VAL(LEFT_LOWER_ARM_ROTATE) - 180, 1, 0, 0);
-			drawRoundCylinder(VAL(LOWER_ARM_LENGTH), 0.15, 0.20);
+				glTranslated(0, 0, VAL(UPPER_ARM_LENGTH) - 0.1);
+				glRotated(VAL(LEFT_LOWER_ARM_ROTATE) - 180, 1, 0, 0);
+				drawRoundCylinder(VAL(LOWER_ARM_LENGTH), 0.15, 0.20);
 
-			// hand
-			glPushMatrix();
-			glTranslated(-0.03, 0, VAL(LOWER_ARM_LENGTH) - 0.1);
-			glRotated(VAL(LEFT_HAND_ANGLE), 0, 1, 0);
-			drawBox(0.03, 0.25, 0.5);
-			glPopMatrix();
+				// hand
+				glPushMatrix();
+				glTranslated(-0.03, 0, VAL(LOWER_ARM_LENGTH) - 0.1);
+				glRotated(VAL(LEFT_HAND_ANGLE), 0, 1, 0);
+				drawBox(0.03, 0.25, 0.5);
+				glPopMatrix();
 
-			glPushMatrix();
-			glTranslated(0.03, 0, VAL(LOWER_ARM_LENGTH) - 0.1);
-			glRotated(-VAL(LEFT_HAND_ANGLE), 0, 1, 0);
-			drawBox(0.03, 0.25, 0.5);
-			if (VAL(DETAIL_LEVEL) > 3) {
-				glRotated(90, 0, 0, 1);
-				drawCylinder(5, 0.02, 0.02);
+				glPushMatrix();
+				glTranslated(0.03, 0, VAL(LOWER_ARM_LENGTH) - 0.1);
+				glRotated(-VAL(LEFT_HAND_ANGLE), 0, 1, 0);
+				drawBox(0.03, 0.25, 0.5);
+				if (VAL(DETAIL_LEVEL) > 3) {
+					glRotated(90, 0, 0, 1);
+					drawCylinder(5, 0.02, 0.02);
+					if (VAL(DETAIL_LEVEL) > 4) {
+						glTranslated(0, 0, 4);
+						LS ls("X", VAL(LS_DEPTH), VAL(LS_ANGLE));
+						ls.expand(0);
+
+						glPushMatrix();
+						setDiffuseColor(COLOR_GREEN);
+						glTranslated(0, -0.5, 1);
+						glPushMatrix();
+						glRotated(90, 1.0, 0.0, 0.0);
+						ls.drawLS();
+						glPopMatrix();
+						glPopMatrix();
+					}
+				}
+				glPopMatrix();
+
+				glPopMatrix();
 			}
-			glPopMatrix();
-
-			glPopMatrix();
 
 			//right leg
 			glPushMatrix();
+			setDiffuseColor(COLOR_YELLOW);
 			glTranslated(-0.5, VAL(LEG_LENGTH), 0);
 			glRotated(VAL(RIGHT_LEG_ROTATE_X), 1.0, 0.0, 0.0);
 			glRotated(VAL(RIGHT_LEG_ROTATE_Y), 0.0, 1.0, 0.0);

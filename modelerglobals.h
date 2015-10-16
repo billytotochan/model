@@ -32,6 +32,8 @@ enum SampleModelControls
 
 	TORUS_R, TORUS_r,
 
+	LS_DEPTH, LS_ANGLE,
+
 	DETAIL_LEVEL,
 	NUMCONTROLS
 };
